@@ -1,12 +1,13 @@
 module type DictionaryOf =
 sig
-    type t
+    type k
+    type v
 end
 
 module Dictionary (D: DictionaryOf) =
 struct
-    type value = None | Value of D.t
-    let empty (k : string) = None
+    type value = None | Value of D.v
+    let empty (k : D.k) = None
     let find d k = d k
     let add d k v = fun k' -> if k = k' then v else d k'
     let remove d k =
@@ -16,5 +17,6 @@ end
 
 module Int' =
 struct
-        type t = int
+        type k = string
+        type v = int
 end
